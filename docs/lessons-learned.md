@@ -2,46 +2,36 @@
 
 ## Separate configuration from code
 
-Environment variables kept SMTP and Supabase configuration out of application
-source. A public repository still needs an explicit `.env.example` and strong
-ignore rules.
+Environment variables kept SMTP and Supabase configuration out of application source. The repository includes an `.env.example` so the required configuration is visible without publishing live values.
 
 ## Remove dead security-sensitive code
 
-A superseded file can still create risk or confuse reviewers. The old
-plaintext-local-storage authentication prototype did not belong in a modern
-public reference repository even though the active pages used Supabase.
+A superseded file can still create risk or make the active architecture unclear. The old plaintext-`localStorage` authentication prototype was no longer part of the active login flow and did not belong in the public reference implementation.
 
 ## Verify both sides of an integration
 
-A form can render correctly and still fail because the backend expects a
-different payload. Reviewing the frontend and API route together exposed the
-General Inquiry mismatch.
+A form can render correctly and still fail because the backend expects a different payload. Comparing the General Inquiry page with the contact API exposed a frontend/backend mismatch that was corrected in this version.
 
 ## Authentication is only one layer
 
-Using Supabase Auth does not by itself prove secure row authorization. Row
-Level Security must be designed and verified separately.
+Using Supabase Auth establishes identity and session handling, but it does not by itself prove secure row authorization. Production use would also require tested Row Level Security policies.
 
-## Public repositories need a disclosure model
+## Server-side boundaries matter
 
-A portfolio copy should answer:
+SMTP credentials stay on the server side through the contact API route rather than being exposed to browser code. The same principle applies to other secrets and privileged integrations.
 
-- What is real?
-- What was changed for publication?
-- What is intentionally withheld?
-- What should not be claimed?
+## Public source should preserve technical value without exposing the live environment
 
-That is why this repository includes both an accuracy review and a security
-review.
+The repository keeps architecture, application flow, and implementation details while removing organization-specific values that are not needed to understand the code.
 
 ## Future improvements
 
-- add automated tests for API form types
+- add automated tests for all API form types
 - add rate limiting and abuse controls
 - add schema migrations and verified RLS policies
 - add CI secret scanning
-- add form schema validation
+- add schema-based form validation
 - add server-side structured logging
 - add accessibility testing
 - add deployment security headers
+- add dependency/security scanning
