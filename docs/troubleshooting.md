@@ -1,48 +1,71 @@
-# Troubleshooting Review
+# Troubleshooting Notes
 
-The recovered project is useful as a portfolio artifact partly because it shows
-real iteration rather than a perfect first draft.
+This project went through several rounds of iteration. The issues below are useful examples of checking both application behavior and implementation details rather than assuming a finished-looking UI means every path is working correctly.
 
-## Issue: frontend/backend form mismatch
+## Frontend/backend form mismatch
 
-The General Inquiry page sent `formType: "general"`, while the shared email API
-handled only service and feedback.
+The General Inquiry page submitted:
+
+```text
+formType: "general"
+```
+
+while the shared email API originally handled only service requests and feedback.
 
 ### Effect
 
-The UI could report failure even though the visible form looked complete.
+The form could render and accept input correctly while still failing at the API layer.
 
-### Public-version correction
+### Resolution
 
-A dedicated `general` branch was added to the API route.
+A dedicated `general` branch was added so the frontend form type and server-side handler use the same contract.
 
-## Issue: obsolete plaintext local storage helper
+### Lesson
+
+A working UI is only one side of an integration. Frontend payloads and backend handlers should be verified together.
+
+---
+
+## Obsolete plaintext local-storage authentication helper
 
 An older helper stored email/password data directly in browser `localStorage`.
 
-### Review finding
+### Investigation
 
-The active login and registration pages used Supabase instead, meaning the
-helper was superseded but still remained in the repository.
+The active registration and login pages were already using Supabase Auth, which meant the helper was superseded but still present in the source tree.
 
-### Public-version correction
+### Resolution
 
-The file was removed from the public release. Calendar-link construction was
-moved into a dedicated non-authentication utility.
+The obsolete helper was removed from the public version. Authentication remains handled through Supabase.
 
-## Issue: private operational links in UI
+### Lesson
 
-The recovered home page included real organization, payment, monitoring, and
-reporting destinations.
+Dead code can still create security risk and confuse reviewers about which implementation is actually active.
 
-### Public-version correction
+---
 
-Those integrations were not required to demonstrate the code architecture, so
-the public portfolio copy replaces the home page with generic internal
-features only.
+## Private operational links mixed into the UI
 
-## Lesson
+The original application contained organization-specific customer, payment, monitoring, and reporting links.
 
-A public portfolio review is not only a secret scan. Dead code, live business
-URLs, branded assets, stale implementations, and inaccurate README claims can
-all create risk or reduce technical credibility.
+### Resolution
+
+Those live destinations were replaced or removed because they were not required to demonstrate the application architecture.
+
+### Lesson
+
+Public source review involves more than scanning for passwords. Live business URLs, branded assets, stale code, and deployment metadata can expose unnecessary information even when no secret token is present.
+
+---
+
+## Database authorization boundary
+
+The reminder UI issues user-scoped Supabase queries, but the original project did not preserve authoritative migration and Row Level Security policy files.
+
+### Result
+
+The application can demonstrate authentication and reminder data access, but the repository does not present the authorization layer as production-complete.
+
+### Lesson
+
+Authentication and authorization are separate concerns. A user being signed in does not by itself prove that row-level access controls are correctly enforced.
