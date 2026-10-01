@@ -2,27 +2,27 @@
 
 ## Separate configuration from code
 
-Environment variables kept SMTP and Supabase configuration out of application source. The repository includes an `.env.example` so the required configuration is visible without publishing live values.
+Environment variables kept SMTP and Supabase configuration out of application source. The repository includes an `.env.example` so the required configuration is visible without exposing live values.
 
 ## Remove dead security-sensitive code
 
-A superseded file can still create risk or make the active architecture unclear. The old plaintext-`localStorage` authentication prototype was no longer part of the active login flow and did not belong in the public reference implementation.
+A superseded file can still create risk or make the active architecture unclear. The old plaintext-`localStorage` authentication prototype was no longer part of the active login flow and was removed in favor of the Supabase-based path already used by the application.
 
 ## Verify both sides of an integration
 
-A form can render correctly and still fail because the backend expects a different payload. Comparing the General Inquiry page with the contact API exposed a frontend/backend mismatch that was corrected in this version.
+A form can render correctly and still fail because the backend expects a different payload. Comparing the General Inquiry page with the contact API exposed a frontend/backend mismatch that I corrected.
 
 ## Authentication is only one layer
 
-Using Supabase Auth establishes identity and session handling, but it does not by itself prove secure row authorization. Production use would also require tested Row Level Security policies.
+Using Supabase Auth establishes identity and session handling, but it does not by itself prove secure row authorization. Row Level Security is a separate layer that needs its own design and verification.
 
 ## Server-side boundaries matter
 
-SMTP credentials stay on the server side through the contact API route rather than being exposed to browser code. The same principle applies to other secrets and privileged integrations.
+SMTP credentials stay on the server side through the contact API route rather than being exposed to browser code. The same separation is useful for any privileged integration.
 
-## Public source should preserve technical value without exposing the live environment
+## Preserve the technical value, not the live environment
 
-The repository keeps architecture, application flow, and implementation details while removing organization-specific values that are not needed to understand the code.
+The application architecture, troubleshooting process, and implementation choices are useful to review. Organization-specific URLs, credentials, and deployment identifiers are not necessary to understand those decisions.
 
 ## Future improvements
 
