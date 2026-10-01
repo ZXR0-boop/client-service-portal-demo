@@ -45,8 +45,7 @@ The browser never receives the SMTP password.
 
 ## Authentication
 
-The browser creates a Supabase client from two public runtime configuration
-values:
+The browser creates a Supabase client from two public runtime configuration values:
 
 - Supabase project URL
 - Supabase anonymous client key
@@ -55,13 +54,9 @@ Supabase manages login state and password-reset sessions.
 
 ## Reminder data
 
-Authenticated pages query the `inspection_reminders` table using the signed-in
-user ID.
+Authenticated pages query the `inspection_reminders` table using the signed-in user ID.
 
-The recovered application issued user-scoped queries from the browser. Secure
-deployment therefore depends on appropriate Supabase Row Level Security
-policies. The private repository did not contain authoritative migration/RLS
-files, so the public repository does not invent them.
+The application scopes reminder queries by user ID in browser code. Database-enforced row ownership still depends on Supabase Row Level Security. The original project did not preserve authoritative migration or RLS files, so that layer remains a documented limitation of the architecture.
 
 ## Contact API
 
