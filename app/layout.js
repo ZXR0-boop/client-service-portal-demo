@@ -3,11 +3,11 @@ import AppSplashScreen from "./components/app-splash-screen";
 
 export const metadata = {
   title: {
-    default: "Client Service Portal Demo",
-    template: "%s | Client Service Portal Demo",
+    default: "Client Service Portal",
+    template: "%s | Client Service Portal",
   },
   description:
-    "Sanitized portfolio demonstration of a Next.js customer service portal.",
+    "Customer self-service portal for account access, service requests, inspection reminders, feedback, and calendar export.",
 };
 
 export default function RootLayout({ children }) {
