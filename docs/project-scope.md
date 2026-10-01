@@ -1,8 +1,8 @@
 # Project Scope
 
-This repository is a sanitized demonstration derived from a private customer-facing application. The goal is to show the implementation accurately while separating original functionality, later cleanup, and production features that are not demonstrated here.
+This project began as a private customer-facing application built around a real service organization. The repository preserves the technical workflows while replacing organization-specific details that are not needed to understand the code.
 
-## Implemented in the original application
+## Original functionality
 
 - Next.js App Router pages
 - React form components and client-side state handling
@@ -17,19 +17,21 @@ This repository is a sanitized demonstration derived from a private customer-fac
 - loading, error, validation, and success states
 - environment-variable based configuration
 
-## Corrected or cleaned up in this public version
+## Later corrections and cleanup
+
+While reviewing the project, I made several changes that improve the current implementation:
 
 - removed organization-specific branding, live operational links, and deployment details
 - removed an obsolete browser `localStorage` authentication prototype that stored plaintext credentials
-- added handling for the General Inquiry form type so the frontend and email API agree
+- added handling for the General Inquiry form type so the frontend and email API use the same contract
 - added HTML escaping for user-controlled values included in email output
-- replaced live organization-specific values with generic placeholders
+- replaced live organization-specific values with generic equivalents
 
-These changes improve the public reference implementation, but they are not presented as if they were always part of the original private application.
+These changes are part of the project's evolution and are documented separately from the features that were already present.
 
-## Not demonstrated
+## Current limitations
 
-This repository does not demonstrate:
+The preserved implementation does not include evidence of:
 
 - enterprise IAM architecture
 - production Row Level Security policy design
@@ -43,8 +45,10 @@ This repository does not demonstrate:
 
 ## Database limitation
 
-The application expects an `inspection_reminders` table, but the original project did not preserve authoritative database migration or Row Level Security policy files. The public repository therefore documents the expected data model without inventing a production schema.
+The application expects an `inspection_reminders` table, but authoritative database migration and Row Level Security policy files were not preserved.
 
-## Why the distinction matters
+Because of that, the repository documents the application's expected data contract while treating database authorization as a known production gap.
 
-The project is more useful when its limits are visible. Features that were implemented are documented as implemented, later fixes are identified as later fixes, and production controls that are not evidenced are left as future work.
+## Why I document the limits
+
+The useful part of this project is not just the feature list. It also shows where the implementation is complete, where I found and corrected inconsistencies, and where additional work would be required before treating the application as production-ready.
