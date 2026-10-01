@@ -28,7 +28,7 @@ export default function AppSplashScreen({ children }) {
             CP
           </div>
           <p className="mt-5 text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-            Portfolio Demo
+            Customer Portal
           </p>
           <h1 className="mt-2 text-2xl font-bold text-white">
             Client Service Portal
