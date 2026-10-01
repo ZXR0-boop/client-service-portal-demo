@@ -1,6 +1,6 @@
 # Forms and Email Flow
 
-## Supported public form types
+## Supported form types
 
 - Service request
 - General inquiry
@@ -26,14 +26,12 @@ sequenceDiagram
 
 ## Why server-side mail matters
 
-The SMTP username/password remain server-side environment values rather than
-being embedded into browser JavaScript.
+The SMTP username and password remain server-side environment values rather than being embedded into browser JavaScript.
 
-## Portfolio cleanup
+## Integration correction
 
-The recovered source had a mismatch where the General Inquiry frontend used a
-`general` form type that the backend did not handle. The public release fixes
-that branch and documents the change in `PROJECT_ACCURACY_REVIEW.md`.
+During review of the application, I found that the General Inquiry frontend submitted `formType: "general"` while the shared contact API handled only service requests and feedback.
 
-The public version also escapes HTML derived from user input before composing
-HTML email.
+The API now includes the matching `general` branch so the frontend and backend use the same contract.
+
+User-controlled values are also escaped before being inserted into HTML email content. This keeps the email route aligned with the form behavior shown in the interface and reduces unsafe rendering of submitted text.
