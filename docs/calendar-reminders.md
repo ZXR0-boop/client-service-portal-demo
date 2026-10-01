@@ -4,7 +4,7 @@
 
 Authenticated users can create, read, and delete inspection reminders.
 
-Expected fields in the recovered UI:
+The reminder workflow uses these fields:
 
 - `id`
 - `user_id`
@@ -15,8 +15,7 @@ Expected fields in the recovered UI:
 
 ## Calendar export
 
-Each saved reminder can generate a local calendar file through
-`/api/calendar`.
+Each saved reminder can generate a local calendar file through `/api/calendar`.
 
 The route outputs standard iCalendar text with:
 
@@ -28,9 +27,8 @@ The route outputs standard iCalendar text with:
 
 This avoids requiring a Google Calendar or Microsoft Graph token.
 
-## Security note
+## Security consideration
 
-The calendar route contains reminder text in the URL query string. For a
-production application containing sensitive notes, a POST-based or server-side
-identifier-based export flow would reduce exposure through browser history and
-logs.
+The current calendar route passes reminder text in the URL query string. That keeps the implementation simple, but it also means reminder details can appear in browser history or logs.
+
+For a production version containing sensitive notes, I would move the export to a POST-based flow or pass only a server-side reminder identifier and load the details on the server.
