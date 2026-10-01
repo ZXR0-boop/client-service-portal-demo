@@ -33,10 +33,10 @@ export default function HomePage() {
           <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-xl font-bold text-red-200">
             CP
           </div>
-          <p className="mt-5 text-xs font-semibold uppercase tracking-[0.28em] text-red-200">Portfolio Demo</p>
+          <p className="mt-5 text-xs font-semibold uppercase tracking-[0.28em] text-red-200">Customer Access</p>
           <h1 className="mt-3 text-4xl font-bold">Client Service Portal</h1>
           <p className="mt-3 text-sm leading-6 text-slate-300">
-            Sanitized demonstration of authentication, service forms, reminder data, and calendar export.
+            Manage service requests, account access, inspection reminders, and customer communications in one place.
           </p>
         </header>
 
@@ -47,7 +47,7 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="Account"
               title={user ? "Signed in" : "Authentication"}
-              description={user ? `Authenticated as ${user.email}` : "Register or sign in using the configured Supabase project."}
+              description={user ? `Authenticated as ${user.email}` : "Register or sign in to access account features and saved reminders."}
             />
             <div className="mt-5 grid gap-3">
               {user ? (
@@ -66,10 +66,10 @@ export default function HomePage() {
         )}
 
         <div className="grid gap-4">
-          <Feature title="Service Request" body="Submit a categorized support request through a server-side mail route." href="/service-request" />
-          <Feature title="General Inquiry" body="Submit a billing or sales-contact inquiry." href="/general-inquiry" />
-          <Feature title="Feedback" body="Send a rating and written feedback." href="/feedback" />
-          <Feature title="Inspection Reminders" body="Create authenticated reminder records and export calendar files." href="/inspection-reminders" />
+          <Feature title="Service Request" body="Submit a categorized request for service or technical assistance." href="/service-request" />
+          <Feature title="General Inquiry" body="Send a billing, sales, or general customer inquiry." href="/general-inquiry" />
+          <Feature title="Feedback" body="Share a rating and written feedback about your service experience." href="/feedback" />
+          <Feature title="Inspection Reminders" body="Create saved inspection reminders and export them to your calendar." href="/inspection-reminders" />
         </div>
       </section>
     </main>
