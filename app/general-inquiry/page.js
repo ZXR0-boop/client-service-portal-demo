@@ -26,7 +26,7 @@ export default function GeneralInquiryPage() {
   }
 
   return (
-    <FormPageShell badge="Inquiry" title="Submit a general inquiry" description="Demonstrates a general contact workflow." activeNav="inquiry">
+    <FormPageShell badge="Inquiry" title="Submit a general inquiry" description="Send a billing, sales, or general customer question." activeNav="inquiry">
       <FormCard><form onSubmit={submit} className="grid gap-4">
         <TextField label="Company" value={form.company} onChange={(v) => set("company", v)} placeholder="Example Company" disabled={loading} />
         <TextField label="Contact" value={form.contact} onChange={(v) => set("contact", v)} placeholder="Jane Smith" disabled={loading} />
