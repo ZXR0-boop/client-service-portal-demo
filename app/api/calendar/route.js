@@ -39,7 +39,7 @@ export async function GET(request) {
 
   const ics = `BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//PortfolioDemo//Inspection Reminder//EN
+PRODID:-//ClientServicePortal//Inspection Reminder//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
