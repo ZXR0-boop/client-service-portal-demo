@@ -1,57 +1,49 @@
 # Security Considerations
 
-The public repository intentionally separates application architecture from private deployment details.
+The security model in this project is based on separating browser-accessible configuration from privileged server-side values and limiting how much environment-specific information appears in source.
 
-## Information excluded or generalized
+## Configuration boundary
 
-- passwords and authentication secrets
-- API tokens
-- SMTP credentials
-- live Supabase project identifiers
-- private customer and operational URLs
-- organization-specific branding and contact details
-- personal email addresses
-- internal IP addresses
-- private filesystem paths
-- deployment metadata and raw deployment output
-- original private Git history
+The repository uses generic placeholders for organization-specific values. Passwords, SMTP credentials, API tokens, private keys, internal addresses, customer URLs, and deployment-specific identifiers remain outside the source tree.
 
-The included `.env.example` contains variable names and placeholders only.
+The included `.env.example` shows the configuration shape without containing live values.
 
 ## Authentication and authorization
 
 Supabase Auth handles registration, login, password recovery, and authenticated sessions.
 
-Authentication alone does not guarantee secure row-level authorization. The reminder pages issue user-scoped queries, so a production deployment also depends on correctly designed and tested Supabase Row Level Security policies. Authoritative RLS migrations were not preserved with the original project and are not invented here.
+The reminder pages issue user-scoped queries, but authentication alone does not guarantee row-level authorization. A production deployment depends on correctly designed and tested Supabase Row Level Security policies.
+
+Authoritative RLS migrations were not preserved with the original project, so database authorization remains an explicit limitation of the demonstrated implementation.
 
 ## Email handling
 
-Contact-form submissions are sent through a server-side API route so SMTP credentials are not exposed to the browser.
+Contact-form submissions are sent through a server-side API route. SMTP credentials are read from server environment variables rather than exposed to browser code.
 
-The public version:
+The route:
 
 - validates supported form types
 - validates required values
 - escapes user-controlled HTML before constructing email content
 - reads SMTP configuration from server-side environment variables
 
-A production deployment would still need abuse controls such as rate limiting, logging, and monitoring.
+## Superseded authentication prototype
 
-## Superseded prototype code
+An older helper stored email/password data in browser `localStorage`. The active authentication pages had already moved to Supabase Auth, so that helper was removed during cleanup.
 
-An older helper stored email/password data in browser `localStorage`. The active authentication pages had already moved to Supabase Auth, and that obsolete helper was removed from this public version.
+That change reduced ambiguity about which authentication system was actually in use and eliminated an insecure legacy approach from the maintained code.
 
-## Production considerations
+## Production gaps identified
 
-Before production use, this sample would still need independent review of:
+The current code would need additional work before production use, including:
 
-- Supabase RLS policies
+- verified Supabase RLS policies
 - rate limiting and abuse prevention
-- SMTP configuration
+- hardened SMTP configuration
 - deployment security headers
 - structured logging
-- monitoring
+- application monitoring
 - domain and TLS configuration
 - dependency and secret scanning
 
-This repository is a source example and project demonstration, not a security certification.
+I treat those as known engineering gaps rather than implied capabilities of the current project.
