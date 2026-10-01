@@ -1,9 +1,6 @@
 # Data Model Notes
 
-The private source repository did not include authoritative database migrations.
-
-The recovered reminder UI referenced an `inspection_reminders` table with these
-fields:
+The reminder workflow expects an `inspection_reminders` table with these fields:
 
 | Field | Purpose |
 | --- | --- |
@@ -14,8 +11,10 @@ fields:
 | `inspection_date` | Date of inspection |
 | `notes` | Optional notes |
 
-This document intentionally stops at the interface demonstrated by the source.
-It does not invent production schema constraints or Row Level Security policies.
+The original project did not preserve authoritative database migrations, so the repository documents the data contract used by the application rather than a full production schema.
 
-For a real deployment, RLS should enforce that authenticated users can operate
-only on rows whose `user_id` matches their authenticated identity.
+## Authorization expectation
+
+Reminder queries are scoped by `user_id` in the application. A production deployment would also enforce the same ownership rule at the database layer with Supabase Row Level Security so one authenticated user cannot read or modify another user's reminder records.
+
+That RLS definition is a known gap in the preserved project artifacts.
