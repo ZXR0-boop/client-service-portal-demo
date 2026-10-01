@@ -26,7 +26,7 @@ export default function FeedbackPage() {
   }
 
   return (
-    <FormPageShell badge="Feedback" title="Share your experience" description="Demonstrates a rating and feedback workflow." activeNav="feedback">
+    <FormPageShell badge="Feedback" title="Share your experience" description="Send a rating and comments about your service experience." activeNav="feedback">
       <FormCard><form onSubmit={submit} className="grid gap-4">
         <TextField label="Name" value={form.name} onChange={(v) => set("name", v)} placeholder="Jane Smith" disabled={loading} />
         <TextField label="Company (Optional)" value={form.company} onChange={(v) => set("company", v)} placeholder="Example Company" required={false} disabled={loading} />
