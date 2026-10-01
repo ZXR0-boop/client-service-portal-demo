@@ -26,7 +26,7 @@ export default function ServiceRequestPage() {
   }
 
   return (
-    <FormPageShell badge="Service" title="Submit a service request" description="Demonstrates a categorized support request workflow." activeNav="service">
+    <FormPageShell badge="Service" title="Submit a service request" description="Send a categorized request for service or technical assistance." activeNav="service">
       <FormCard><form onSubmit={submit} className="grid gap-4">
         <TextField label="Company" value={form.company} onChange={(v) => set("company", v)} placeholder="Example Company" disabled={loading} />
         <TextField label="Contact" value={form.contact} onChange={(v) => set("contact", v)} placeholder="Jane Smith" disabled={loading} />
